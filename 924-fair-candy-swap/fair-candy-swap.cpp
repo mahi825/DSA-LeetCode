@@ -1,29 +1,26 @@
 class Solution {
 public:
-    int sumation(vector<int>&a)
-    {
-        int sum=0;
-        for(int i=0;i<a.size();i++){
-            sum+=a[i];
-        }
-        return sum;
-    }
+   
     vector<int> fairCandySwap(vector<int>& aliceSizes, vector<int>& bobSizes) {
-        int n=aliceSizes.size();
-        int m=bobSizes.size(); 
+      
 
-        int sumA=sumation(aliceSizes);
-        int sumB=sumation(bobSizes);
+        int sumA=0;
+        int sumB=0;
 
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                
-                 if(sumA-aliceSizes[i]+bobSizes[j]==sumB-bobSizes[j]+aliceSizes[i])
-                {
-                    return{aliceSizes[i],bobSizes[j]};
-                }
+        for(int x:aliceSizes){
+            sumA+=x;
+        }
+        for(int x:bobSizes){
+            sumB+=x;
+        }
+        sort(bobSizes.begin(),bobSizes.end());
+        int diff=(sumB-sumA)/2;
+        for(int x:aliceSizes){
+            int y=x+diff;
+            if(binary_search(bobSizes.begin(),bobSizes.end(),y)){
+                return {x,y};
             }
         }
-       return {};
+        return {};
     }
 };
